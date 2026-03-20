@@ -5,14 +5,14 @@ export default function Composer({
   setBody,
   handlePost,
 }) {
-  // 📌 handle enter key
+  
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
     }
   };
 
-  // 📌 button disable logic
+  
   const isDisabled = !title.trim() || !body.trim();
 
   return (

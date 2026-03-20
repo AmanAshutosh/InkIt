@@ -10,22 +10,22 @@ let idCounter = 3;
 
 
 export default function App() {
-  // 📌 POSTS
+ 
   const [posts, setPosts] = useState(initialPosts);
 
-  // 📌 CREATE POST
+  
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
-  // 📌 EDIT POST
+  
   const [editingId, setEditingId] = useState(null);
   const [editTitle, setEditTitle] = useState("");
   const [editBody, setEditBody] = useState("");
 
-  // 📌 THEME
+  
   const [theme, setTheme] = useState("system");
 
-  // 🌙 Theme change effect
+  
   useEffect(() => {
     const root = document.documentElement;
 
@@ -41,7 +41,7 @@ export default function App() {
     }
   }, [theme]);
 
-  // ➕ ADD POST
+  //  ADD POST
   const addPost = () => {
     if (!title || !body) return;
 
@@ -59,7 +59,7 @@ export default function App() {
     setBody("");
   };
 
-  // ❌ DELETE POST
+  //  DELETE POST
   const deletePost = (id) => {
     if (!window.confirm("Delete this post?")) return;
 
@@ -67,14 +67,14 @@ export default function App() {
     setPosts(updatedPosts);
   };
 
-  // ✏️ START EDIT
+  //  START EDIT
   const startEdit = (post) => {
     setEditingId(post.id);
     setEditTitle(post.title);
     setEditBody(post.body);
   };
 
-  // 💾 SAVE EDIT
+  //  SAVE EDIT
   const saveEdit = () => {
     if (!editTitle || !editBody) return;
 

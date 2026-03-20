@@ -1,10 +1,10 @@
 import { formatDate } from "../utils/formatData";
 
 export default function PostCard({ post, startEdit, handleDelete }) {
-  // 📌 destructure (cleaner)
+  
   const { id, title, body, createdAt, edited } = post;
 
-  // 📌 handlers
+  
   const handleEdit = () => startEdit(post);
   const handleDeleteClick = () => handleDelete(id);
 

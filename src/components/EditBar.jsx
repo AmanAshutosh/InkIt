@@ -7,15 +7,15 @@ export default function EditBar({
   handleSave,
   setEditingId,
 }) {
-  // 📌 hide if not editing
+ 
   if (!editingId) return null;
 
-  // 📌 handlers
+  
   const handleTitleChange = (e) => setEditTitle(e.target.value);
   const handleBodyChange = (e) => setEditBody(e.target.value);
   const handleCancel = () => setEditingId(null);
 
-  // 📌 disable logic
+ 
   const isDisabled = !editTitle.trim() || !editBody.trim();
 
   return (
