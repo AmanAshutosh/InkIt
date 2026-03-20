@@ -1,0 +1,385 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+
+:root {
+  --bg: #ffffff;
+  --surface: #f7f7f8;
+  --surface2: #eeeeee;
+  --border: rgba(0,0,0,0.08);
+  --text: #111;
+  --muted: #777;
+  --accent: #d4ff00;
+  --radius: 14px;
+}
+
+
+[data-theme="dark"] {
+  --bg: #0f0f10;
+  --surface: #1a1a1e;
+  --surface2: #222228;
+  --border: rgba(255,255,255,0.08);
+  --text: #f0f0f4;
+  --muted: #6b6b7a;
+}
+
+
+* {
+  transition: background-color 0.3s ease,
+              color 0.3s ease,
+              border-color 0.3s ease;
+}
+
+
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.app {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+
+
+.header {
+  margin-bottom: 40px;
+}
+
+.header-tag {
+  font-family: 'Syne';
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.header h1 {
+  font-family: 'Syne';
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+
+.header span {
+  color: var(--accent);
+}
+
+.header-sub {
+  margin-top: 10px;
+  color: var(--muted);
+}
+
+
+
+.theme-toggle {
+  position: relative;
+  display: inline-flex;
+  margin-top: 14px;
+  background: var(--surface2);
+  border-radius: 999px;
+  padding: 4px;
+}
+
+.theme-toggle::before {
+  content: "";
+  position: absolute;
+  width: 36px;
+  height: 28px;
+  background: var(--accent);
+  border-radius: 999px;
+  top: 4px;
+  left: 4px;
+  transition: 0.3s ease;
+}
+
+.theme-toggle button {
+  position: relative;
+  z-index: 1;
+  border: none;
+  background: transparent;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.theme-toggle[data-active="light"]::before {
+  transform: translateX(42px);
+}
+
+.theme-toggle[data-active="dark"]::before {
+  transform: translateX(84px);
+}
+
+/* ================= COMPOSER ================= */
+
+.composer {
+  position: relative;
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 36px;
+  overflow: hidden;
+
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+[data-theme="dark"] .composer {
+  box-shadow: 0 6px 20px rgba(255,255,255,0.05);
+}
+
+/* animated border */
+.composer::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+
+  background: linear-gradient(
+    135deg,
+    var(--accent),
+    transparent,
+    var(--accent)
+  );
+  background-size: 200% 200%;
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  pointer-events: none;
+}
+
+.composer:hover::before {
+  opacity: 1;
+  animation: borderFlow 2s linear infinite;
+}
+
+@keyframes borderFlow {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 200%; }
+}
+
+
+.composer-title {
+  font-family: 'Syne';
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 18px;
+  letter-spacing: 0.08em;
+}
+
+
+.composer input,
+.composer textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.5);
+  border: none;
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  color: var(--text);
+
+  backdrop-filter: blur(6px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+
+  transition: all 0.2s ease;
+}
+
+
+.composer input {
+  height: 40px;
+}
+
+.composer textarea {
+  min-height: 100px;
+}
+
+
+.composer input:focus,
+.composer textarea:focus {
+  outline: none;
+  background: rgba(255,255,255,0.7);
+  box-shadow:
+    0 0 0 2px rgba(212,255,0,0.2),
+    0 6px 16px rgba(0,0,0,0.08);
+}
+
+
+[data-theme="dark"] .composer input,
+[data-theme="dark"] .composer textarea {
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 2px 8px rgba(255,255,255,0.06);
+}
+
+[data-theme="dark"] .composer input:focus,
+[data-theme="dark"] .composer textarea:focus {
+  box-shadow:
+    0 0 0 2px rgba(212,255,0,0.25),
+    0 6px 18px rgba(255,255,255,0.1);
+}
+
+
+.composer-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.btn-post {
+  background: var(--accent);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-post:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(212,255,0,0.25);
+}
+
+.btn-post:disabled {
+  opacity: 0.4;
+}
+
+
+
+.edit-bar {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 36px;
+  border: 1px solid var(--accent);
+}
+
+.edit-bar input,
+.edit-bar textarea {
+  width: 100%;
+  background: var(--surface2);
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+.edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+
+
+.feed-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.feed-count {
+  background: var(--surface2);
+  padding: 4px 10px;
+  border-radius: 20px;
+  color: var(--accent);
+}
+
+
+
+.post-card {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+  transition: all 0.25s ease;
+  cursor: pointer;
+
+  border: 1px solid var(--border);
+}
+
+.post-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.post-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.post-body {
+  font-size: 14.5px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.post-meta {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.post-date {
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+.post-badge {
+  margin-right: 4px;
+}
+
+
+
+.btn-icon {
+  background: var(--surface2);
+  border: none;
+  border-radius: 8px;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-icon:hover {
+  transform: scale(1.1);
+}
+
+.btn-icon.delete:hover {
+  background: rgba(255,0,0,0.8);
+}
+
+.btn-icon.edit:hover {
+  background: rgba(72,220,8,0.8);
+}
