@@ -1,4 +1,4 @@
-# ✍️ Ink It
+# Ink It
 
 **Ink It** is a modern, minimal, and powerful note-taking web application built with React. It provides a seamless experience for capturing thoughts, managing tasks, and organizing ideas with a distraction-free interface.
 
